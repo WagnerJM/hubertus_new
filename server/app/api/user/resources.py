@@ -13,9 +13,18 @@ class UserRegisterApi(Resource):
                 "msg": "Dieser Username ist leider bereits vergeben"
             }, 500
         
-        user = User(**data)
-        profil = UserProfile(**data)
+        user = User(
+           username=data['user']['username'],
+           password=data['user']['password'],
+           email=data['user']['email']
+        )
+        profile = UserProfile (
+            vorname=data['profile']['vorname'],
+            nachname=data['profile']['nachname']
+
+        )
         user.profile = profile
+        
 
         try:
             user.save()

@@ -15,7 +15,7 @@ class User(BaseMixin, db.Model):
     free_user = db.Column(db.Boolean, default=True)
     pro_user = db.Column(db.Boolean, default=False)
 
-    profile = db.relationship('UserProfile', backref='User', lazy=False)
+    #profile = db.relationship('UserProfile', backref='User', lazy=False)
 
 
     def __init__(self, username, password, email):
