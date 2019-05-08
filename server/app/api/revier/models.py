@@ -1,4 +1,5 @@
 from app.database import BaseMixin, db
+from app.serializer import ma
 from app.api.user.models import User
 from sqlalchemy.dialects.postgresql import JSON
 
@@ -15,11 +16,7 @@ class Revier(BaseMixin, db.Model):
         self.reviername = reviername
         self.ort = ort
 
-    def json(self):
-        return {
-            "id": str(self.id),
-            "reviername": self.reviername,
-            "koordinaten": self.koordinaten,
-            "ort": self.ort
-        }
-    
+
+class RevierSchema(ma.ModelSchema):
+    class Meta:
+        model = Revier
