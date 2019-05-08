@@ -8,7 +8,7 @@ class UserRegisterApi(Resource):
     def post(self):
         data = request.get_json()
 
-        if User.find_by_username(data['username']):
+        if User.find_by_username(data['user']['username']):
             return {
                 "msg": "Dieser Username ist leider bereits vergeben"
             }, 500

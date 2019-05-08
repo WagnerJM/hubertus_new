@@ -27,7 +27,7 @@ class User(BaseMixin, db.Model):
         return bcrypt.hashpw(password, bcrypt.gensalt(16))
     
     def check_pw(self, password, hashed_pw):
-        return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
+        return bcrypt.checkpw(password.encode('utf-8'), hashed_pw)
 
     @classmethod
     def find_by_username(cls, username):
