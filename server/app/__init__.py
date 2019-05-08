@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from app.database import db
+from app.serializer import ma
 from flask_migrate import Migrate
 
 from app.config import app_config
@@ -80,5 +81,6 @@ def create_app():
 
 	db.init_app(app)
 	migrate = Migrate(app, db)
+	ma.init_app(app)
 
 	return app

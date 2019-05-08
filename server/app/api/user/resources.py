@@ -1,29 +1,26 @@
 from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import create_access_token, jwt_required, get_raw_jwt, get_jwt_identity
-from app.api.user.models import User, UserProfile
+
+from app.database import db
+from app.utils import str2uuid
 from app.security import TokenBlacklist
+from app.api.user.models import User, UserProfile, UserSchema
 
 class UserRegisterApi(Resource):
     def post(self):
         data = request.get_json()
 
-        if User.find_by_username(data['user']['username']):
+        if User.find_by_username(data['username']):
             return {
                 "msg": "Dieser Username ist leider bereits vergeben"
             }, 500
         
         user = User(
-           username=data['user']['username'],
-           password=data['user']['password'],
-           email=data['user']['email']
+           username=data['username'],
+           password=data['password'],
+           email=data['email']
         )
-        profile = UserProfile (
-            vorname=data['profile']['vorname'],
-            nachname=data['profile']['nachname']
-
-        )
-        user.profile = profile
         
 
         try:
@@ -66,16 +63,23 @@ class UserApi(Resource):
     @jwt_required
     def get(self):
         user = User.find_by_id(get_jwt_identity())
-        user_profile = UserProfile.get_profile(user.userID)
-
+        user_schema = UserSchema()
         if not user or not user.is_active:
             return {
                 "msg": "User konnte nicht gefunden werden."
             }
         else:
-            return {
-                "user": user.json(),
-                "profile": user_profile.json()
-            }
+            return user_schema.dump(user).data
+    
+    @jwt_required
+    def put(self):
+        user = User.query.filter_by(id=get_jwt_identity())
+        user.update(request.json)
+       
+        db.session.commit()
+
+        us = UserSchema()
+
+        return us.dump(user.first()).data
         
         
