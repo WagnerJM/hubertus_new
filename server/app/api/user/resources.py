@@ -7,10 +7,13 @@ from app.utils import str2uuid
 from app.security import TokenBlacklist
 from app.api.user.models import User, UserSchema
 
+from flask_cors import cross_origin
+
 class UserRegisterApi(Resource):
+    
     def post(self):
         data = request.get_json()
-
+        
         if User.find_by_username(data['username']):
             return {
                 "msg": "Dieser Username ist leider bereits vergeben"
@@ -20,7 +23,7 @@ class UserRegisterApi(Resource):
            username=data['username'],
            password=data['password'],
            email=data['email'],
-           datenschutz=data['datenschutz']
+           
         )
         
 

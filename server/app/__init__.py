@@ -17,10 +17,14 @@ def create_app():
 	api = Api(app)
 	config_name = os.getenv("APP_SETTINGS")
 	app.config['CORS_HEADERS'] = 'Content-Type'
-	CORS(app, resources={r"/*": {"origins": "http://localhost:5001"}})
+
+	
+	cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 	app.config.from_object(app_config[config_name])
 
 	jwt = JWTManager(app)
+
+	
 
 	@jwt.user_claims_loader
 	def add_claims_to_jwt(identity):

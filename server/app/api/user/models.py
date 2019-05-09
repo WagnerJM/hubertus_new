@@ -24,11 +24,11 @@ class User(BaseMixin, db.Model):
     email_verification = db.Column(db.Boolean, default=False)
     
 
-    def __init__(self, username, password, email, datenschutz):
+    def __init__(self, username, password, email):
         self.username = username
         self._password = self.hash_pw(password.encode('utf-8'))
         self.email = email
-        self.datenschutz = datenschutz
+        
 
     def hash_pw(self, password):
         return bcrypt.hashpw(password, bcrypt.gensalt(16))
