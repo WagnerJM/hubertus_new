@@ -31,7 +31,7 @@ class User(BaseMixin, db.Model):
         
 
     def hash_pw(self, password):
-        return bcrypt.hashpw(password, bcrypt.gensalt(16))
+        return bcrypt.hashpw(password, bcrypt.gensalt(12))
     
     def check_pw(self, password, hashed_pw):
         return bcrypt.checkpw(password.encode('utf-8'), hashed_pw)
