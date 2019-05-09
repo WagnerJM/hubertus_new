@@ -7,7 +7,7 @@ from app.serializer import ma
 from flask_migrate import Migrate
 
 from app.config import app_config
-from app.api.user.models import User, UserProfile
+from app.api.user.models import User
 
 
 def create_app():

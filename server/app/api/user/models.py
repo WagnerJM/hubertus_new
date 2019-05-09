@@ -14,20 +14,21 @@ class User(BaseMixin, db.Model):
     email = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-    vorname = db.Column(db.String)
-    nachname = db.Column(db.String)
+    vorname = db.Column(db.String, default="Placeholder")
+    nachname = db.Column(db.String, default="Placeholder")
     adresse = db.Column(JSON)
     
-
+    datenschutz = db.Column(db.Boolean, default=False)
     free_user = db.Column(db.Boolean, default=True)
     pro_user = db.Column(db.Boolean, default=False)
-
+    email_verification = db.Column(db.Boolean, default=False)
     
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, password, email, datenschutz):
         self.username = username
         self._password = self.hash_pw(password.encode('utf-8'))
         self.email = email
+        self.datenschutz = datenschutz
 
     def hash_pw(self, password):
         return bcrypt.hashpw(password, bcrypt.gensalt(16))
