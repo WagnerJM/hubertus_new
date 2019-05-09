@@ -5,6 +5,7 @@ from flask_jwt_extended import JWTManager
 from app.database import db
 from app.serializer import ma
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 from app.config import app_config
 from app.api.user.models import User
@@ -15,7 +16,8 @@ def create_app():
 	app = Flask(__name__)
 	api = Api(app)
 	config_name = os.getenv("APP_SETTINGS")
-
+	app.config['CORS_HEADERS'] = 'Content-Type'
+	CORS(app, resources={r"/*": {"origins": "http://localhost:5001"}})
 	app.config.from_object(app_config[config_name])
 
 	jwt = JWTManager(app)

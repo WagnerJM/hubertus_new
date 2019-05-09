@@ -19,7 +19,8 @@ class UserRegisterApi(Resource):
         user = User(
            username=data['username'],
            password=data['password'],
-           email=data['email']
+           email=data['email'],
+           datenschutz=data['datenschutz']
         )
         
 
