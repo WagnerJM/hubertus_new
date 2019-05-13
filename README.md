@@ -12,6 +12,8 @@ https://stackoverflow.com/questions/54499070/leaflet-and-vuejs-how-to-add-a-new-
 
 http://www.hegering-bocholt.de/userfiles/downloads/Wildursprungsschein101210.pdf
 
+https://recht.nrw.de/lmi/owa/br_vbl_show_pdf?p_id=1164
+
 ## Installation
 
 .env Datei erstellen
